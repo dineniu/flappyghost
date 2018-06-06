@@ -1,4 +1,4 @@
-package com.cursoandroid.flappybird;
+package com.coffeepotion.flappyghost;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -18,10 +18,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Random;
 
-public class FlappyBird extends ApplicationAdapter {
+public class FlappyGhost extends ApplicationAdapter {
 
     private SpriteBatch batch;
-    private Texture[] passaros;
+    private Texture[] ghosts;
     private Texture fundo;
     private Texture canoBaixo;
     private Texture canoTopo;
@@ -29,7 +29,7 @@ public class FlappyBird extends ApplicationAdapter {
     private Random numeroRandomico;
     private BitmapFont fonte;
     private BitmapFont mensagem;
-    private Circle passaroCirculo;
+    private Circle ghostCirculo;
     private Rectangle retanguloCanoTopo;
     private Rectangle retanguloCanoBaixo;
     //private ShapeRenderer shape;
@@ -44,7 +44,6 @@ public class FlappyBird extends ApplicationAdapter {
     private float velocidadeQueda=0;
     private float posicaoInicialVertical;
     private float posicaoMovimentoCanoHorizontal;
-    private float espacoEntreCanos;
     private float deltaTime;
     private float alturaEntreCanosRandomica;
     private boolean marcouPonto=false;
@@ -55,15 +54,16 @@ public class FlappyBird extends ApplicationAdapter {
     private final float VIRTUAL_WIDTH = 768;
     private final float VIRTUAL_HEIGHT = 1024;
 
+    //Valores Padrao
+    private float espacoEntreCanos = 250;
+    private float velocidadeHorizontalCanos = 400;
+
     @Override
     public void create () {
 
         batch = new SpriteBatch();
         numeroRandomico = new Random();
-        passaroCirculo = new Circle();
-        /*retanguloCanoTopo = new Rectangle();
-        retanguloCanoBaixo = new Rectangle();
-        shape = new ShapeRenderer();*/
+        ghostCirculo = new Circle();
         fonte = new BitmapFont();
         fonte.setColor(Color.WHITE);
         fonte.getData().setScale(6);
@@ -73,10 +73,10 @@ public class FlappyBird extends ApplicationAdapter {
         mensagem.getData().setScale(3);
 
 
-        passaros = new Texture[3];
-        passaros[0] = new Texture("passaro1.png");
-        passaros[1] = new Texture("passaro2.png");
-        passaros[2] = new Texture("passaro3.png");
+        ghosts = new Texture[3];
+        for (int i = 0; i < ghosts.length; i++){
+            ghosts[i] = new Texture("ghost"+(i+1)+".png");
+        }
 
         fundo = new Texture("fundo.png");
         canoBaixo = new Texture("cano_baixo.png");
@@ -95,8 +95,6 @@ public class FlappyBird extends ApplicationAdapter {
 
         posicaoInicialVertical = alturaDispositivo / 2;
         posicaoMovimentoCanoHorizontal = larguraDispositivo;
-        espacoEntreCanos = 300;
-
     }
 
     @Override
@@ -125,7 +123,7 @@ public class FlappyBird extends ApplicationAdapter {
 
             if( estadoJogo == 1 ){//iniciado
 
-                posicaoMovimentoCanoHorizontal -= deltaTime * 200;
+                posicaoMovimentoCanoHorizontal -= deltaTime * velocidadeHorizontalCanos;
 
                 if (Gdx.input.justTouched()) {
                     velocidadeQueda = -15;
@@ -169,7 +167,7 @@ public class FlappyBird extends ApplicationAdapter {
         batch.draw(fundo, 0, 0, larguraDispositivo, alturaDispositivo);
         batch.draw(canoTopo, posicaoMovimentoCanoHorizontal, alturaDispositivo / 2 + espacoEntreCanos / 2 + alturaEntreCanosRandomica);
         batch.draw(canoBaixo, posicaoMovimentoCanoHorizontal, alturaDispositivo / 2 - canoBaixo.getHeight() - espacoEntreCanos / 2 + alturaEntreCanosRandomica);
-        batch.draw(passaros[(int) variacao], 120, posicaoInicialVertical);
+        batch.draw(ghosts[(int) variacao], 120, posicaoInicialVertical);
         fonte.draw(batch, String.valueOf(pontuacao), larguraDispositivo / 2, alturaDispositivo - 50);
 
         if( estadoJogo == 2 ) {
@@ -179,7 +177,7 @@ public class FlappyBird extends ApplicationAdapter {
 
         batch.end();
 
-        passaroCirculo.set(120 + passaros[0].getWidth() / 2, posicaoInicialVertical + passaros[0].getHeight() / 2, passaros[0].getWidth() / 2);
+        ghostCirculo.set(120 + ghosts[0].getWidth() / 2, posicaoInicialVertical + ghosts[0].getHeight() / 2, ghosts[0].getWidth() / 2);
         retanguloCanoBaixo = new Rectangle(
                 posicaoMovimentoCanoHorizontal, alturaDispositivo / 2 - canoBaixo.getHeight() - espacoEntreCanos / 2 + alturaEntreCanosRandomica,
                 canoBaixo.getWidth(), canoBaixo.getHeight()
@@ -190,16 +188,9 @@ public class FlappyBird extends ApplicationAdapter {
                 canoTopo.getWidth(), canoTopo.getHeight()
         );
 
-        //Desenhar formas
-        /*shape.begin( ShapeRenderer.ShapeType.Filled);
-        shape.circle(passaroCirculo.x, passaroCirculo.y, passaroCirculo.radius);
-        shape.rect(retanguloCanoBaixo.x, retanguloCanoBaixo.y, retanguloCanoBaixo.width, retanguloCanoBaixo.height);
-        shape.rect(retanguloCanoTopo.x, retanguloCanoTopo.y, retanguloCanoTopo.width, retanguloCanoTopo.height);
-        shape.setColor(Color.RED);
-        shape.end();*/
 
         //Teste de colisão
-        if( Intersector.overlaps( passaroCirculo, retanguloCanoBaixo ) || Intersector.overlaps(passaroCirculo, retanguloCanoTopo)
+        if( Intersector.overlaps( ghostCirculo, retanguloCanoBaixo ) || Intersector.overlaps(ghostCirculo, retanguloCanoTopo)
                 || posicaoInicialVertical <= 0 || posicaoInicialVertical >= alturaDispositivo ){
             //Gdx.app.log("Colisão", "Houve colisão");
             estadoJogo = 2;

@@ -1,16 +1,16 @@
-package com.cursoandroid.flappybird;
+package com.coffeepotion.flappyghost;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.cursoandroid.flappybird.FlappyBird;
+import com.coffeepotion.flappyghost.FlappyGhost;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new FlappyBird(), config);
+		initialize(new FlappyGhost(), config);
 	}
 }

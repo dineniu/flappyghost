@@ -60,17 +60,18 @@ public class FlappyGhost extends ApplicationAdapter {
 
     @Override
     public void create () {
-
         batch = new SpriteBatch();
         numeroRandomico = new Random();
         ghostCirculo = new Circle();
-        fonte = new BitmapFont();
+        fonte = new BitmapFont(Gdx.files.internal("exo-large.fnt"));
+        fonte.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         fonte.setColor(Color.WHITE);
-        fonte.getData().setScale(6);
+        fonte.getData().setScale(1);
 
-        mensagem = new BitmapFont();
+        mensagem = new BitmapFont(Gdx.files.internal("exo-medium.fnt"));
+        mensagem.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         mensagem.setColor(Color.WHITE);
-        mensagem.getData().setScale(3);
+        mensagem.getData().setScale(1);
 
 
         ghosts = new Texture[3];

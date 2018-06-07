@@ -20,6 +20,8 @@ import java.util.Random;
 
 public class FlappyGhost extends ApplicationAdapter {
 
+    //private InterstitialAd mInterstitialAd;
+
     private SpriteBatch batch;
     private Texture[] ghosts;
     private Texture fundo;
@@ -57,6 +59,8 @@ public class FlappyGhost extends ApplicationAdapter {
     //Valores Padrao
     private float espacoEntreCanos = 250;
     private float velocidadeHorizontalCanos = 400;
+
+    //Contadores
 
     @Override
     public void create () {
@@ -203,4 +207,49 @@ public class FlappyGhost extends ApplicationAdapter {
     public void resize(int width, int height) {
         viewport.update(width, height);
     }
+
+    /*
+
+    private boolean showInterstitial() {
+        boolean retorno=false;
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+            retorno= true;
+        } else {
+            //Toast.makeText(this.mContext, "Ad did not load", Toast.LENGTH_SHORT).show();
+            //goToNextLevel();
+        }
+        return retorno;
+    }
+
+    private InterstitialAd newInterstitialAd() {
+        final InterstitialAd interstitialAd = new InterstitialAd(this.mContext);
+        interstitialAd.setAdUnitId(mContext.getString(R.string.interstitial_ad_unit_id));
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+            }
+
+            @Override
+            public void onAdClosed() {
+
+            }
+        });
+        return interstitialAd;
+    }
+
+    private void loadInterstitial() {
+        // Disable the next level button and load the ad.
+        //mNextLevelButton.setEnabled(false);
+        AdRequest adRequest = new AdRequest.Builder()
+                .setRequestAgent("android_studio:ad_template").build();
+        mInterstitialAd.loadAd(adRequest);
+    }
+    */
 }

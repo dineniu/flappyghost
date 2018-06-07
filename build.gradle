@@ -1,7 +1,10 @@
 buildscript {
     repositories {
+        google()
+        jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven {url "https://maven.google.com"}
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -14,7 +17,7 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "Flappy Bird"
+        appName = "Flappy Ghost"
         gdxVersion = '1.9.8'
         roboVMVersion = '1.12.0'
         box2DLightsVersion = '1.4'
@@ -23,6 +26,10 @@ allprojects {
     }
 
     repositories {
+        google()
+        jcenter()
+        jcenter()
+        maven {url "https://maven.google.com"}
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
@@ -48,6 +55,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+        implementation 'com.google.android.gms:play-services-ads:15.0.1'
     }
 }
 

@@ -2,5 +2,9 @@
 <resources>
 
     <string name="app_name">Flappy Ghost</string>
-
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-8276659967488778/5640474224</string>
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="cannot_rate">Sorry, you cannot rate us right now, try again later.</string>
+    <string name="share_subject">Hey, this game is very funny. Wanna play?</string>
+    <string name="send_to">Send to</string>
 </resources>

@@ -11,8 +11,12 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 public class AndroidLauncher extends AndroidApplication {
-	private static final String adUnitId="ca-app-pub-3940256099942544/6300978111";
 	private AdView adView;
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+	}
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -23,7 +27,7 @@ public class AndroidLauncher extends AndroidApplication {
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		layout.setLayoutParams(params);
 
-		View gameView=initializeForView(new FlappyGhost(), config);
+		View gameView=initializeForView(new FlappyGhost(this.getContext()), config);
 
 		RelativeLayout.LayoutParams gameViewParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		gameViewParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
@@ -34,7 +38,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 		adView = new AdView(this);
 		adView.setAdSize(AdSize.BANNER);
-		adView.setAdUnitId(adUnitId);
+		adView.setAdUnitId(getString(R.string.banner_ad_unit_id));
 
 		AdRequest.Builder adRequestBuilder = new AdRequest.Builder();
 		adRequestBuilder.addTestDevice(AdRequest.DEVICE_ID_EMULATOR);
